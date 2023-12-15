@@ -1,11 +1,62 @@
-import requests
+import subprocess
 import logging
 import json
+
+# Checkout for Required Libraries
+def install_libraries():
+    required_libraries = ['requests', 'paramiko']
+    missing_libraries = []
+
+    try:
+        import importlib
+        for lib in required_libraries:
+            try:
+                importlib.import_module(lib)
+            except ImportError:
+                missing_libraries.append(lib)
+                subprocess.check_call(['pip', 'install', lib])
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return
+
+    if missing_libraries:
+        print("The following libraries were installed:")
+        for lib in missing_libraries:
+            print(lib)
+    else:
+        print("All required libraries are already installed.")
+
+install_libraries()
 import paramiko
+import requests
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+# Checking Libraries
+def check_libraries():
+    required_libraries = ['requests', 'paramiko']
+    missing_libraries = []
+
+    try:
+        import importlib
+        for lib in required_libraries:
+            try:
+                importlib.import_module(lib)
+            except ImportError:
+                missing_libraries.append(lib)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return
+
+    if missing_libraries:
+        print("The following libraries are missing:")
+        for lib in missing_libraries:
+            print(lib)
+    else:
+        print("All required libraries are installed.")
+
+check_libraries()
 
 # Marzban Information
 print("Marzban Panel Information")
