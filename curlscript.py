@@ -14,7 +14,14 @@ def install_libraries():
                 importlib.import_module(lib)
             except ImportError:
                 missing_libraries.append(lib)
-                subprocess.check_call(['pip', 'install', lib])
+
+        if missing_libraries:
+            # Creating a virtual environment
+            subprocess.check_call(['python3', '-m', 'venv', 'myenv'])
+            # Activating the virtual environment
+            subprocess.check_call(['source', 'myenv/bin/activate'])
+            # Installing required packages within the virtual environment
+            subprocess.check_call(['pip', 'install'] + missing_libraries)
     except Exception as e:
         print(f"An error occurred: {e}")
         return
