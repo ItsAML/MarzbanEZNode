@@ -82,12 +82,12 @@ commands = [
     'rm -r Marzban-node',
     'git clone https://github.com/Gozargah/Marzban-node',
     'cd Marzban-node',
-    'docker-compose up -d',
-    'docker-compose down',
+    'docker compose up -d',
+    'docker compose down',
     f'echo "{cert_info}" > /var/lib/marzban-node/ssl_client_cert.pem',
     'rm docker-compose.yml',
     'echo \'services:\n  marzban-node:\n    image: gozargah/marzban-node:latest\n    restart: always\n    network_mode: host\n    environment:\n      SSL_CERT_FILE: "/var/lib/marzban-node/ssl_cert.pem"\n      SSL_KEY_FILE: "/var/lib/marzban-node/ssl_key.pem"\n      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert.pem"\n    volumes:\n      - /var/lib/marzban-node:/var/lib/marzban-node\' > docker-compose.yml',
-    'docker-compose up'
+    'docker compose up'
 ]
 
 # Establish SSH connection
