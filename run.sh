@@ -1,27 +1,12 @@
-if command -v apt &> /dev/null; then
-    if ! command -v python3 &> /dev/null; then
-        echo "Python3 is not installed."
-        sudo apt-get update
-        sudo apt-get install python3
-    fi
-    
-    if ! command -v pip &> /dev/null; then
-        echo "pip is not installed."
-        sudo apt-get install python3-pip
-    fi
-elif command -v yum &> /dev/null; then
-    if ! command -v python3 &> /dev/null; then
-        echo "Python3 is not installed."
-        sudo yum install python3
-    fi
-    
-    if ! command -v pip &> /dev/null; then
-        echo "pip is not installed."
-        sudo yum install python3-pip
-    fi
-else
-    echo "Your package manager is not supported. Please install Python3 or Pip manually."
-    # Instructions for manual installation
+if ! command -v python3 &> /dev/null; then
+    echo "Python3 is not installed."
+    sudo apt update
+    sudo apt install python3 -y
+fi
+
+if ! command -v pip &> /dev/null; then
+    echo "pip is not installed."
+    sudo apt install python3-pip -y
 fi
 
 required_libraries=("requests" "paramiko")
