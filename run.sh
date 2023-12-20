@@ -21,4 +21,9 @@ for lib in "${required_libraries[@]}"; do
     fi
 done
 
-curl -sSL https://raw.githubusercontent.com/ItsAML/MarzbanEZNode/main/curlscript.py | python3 -
+# Saving Script into > curlscript.py
+curl -sSL https://raw.githubusercontent.com/ItsAML/MarzbanEZNode/main/curlscript.py > curlscript.py
+# Running previously saved script
+python3 curlscript.py
+# (OPTIONAL) removing script
+rm curlscript.py
