@@ -78,6 +78,7 @@ while True:
         break
     elif https_if_statment == "n":
         HTTPS = False
+        break
     else:
         print("invalid value, try again...")
 ADD_AS_HOST = True # Set this to True if you want to add node on all hosts, otherwise set to False
@@ -87,6 +88,7 @@ while True:
         break
     elif host_if_statment == "n":
         ADD_AS_HOST = False
+        break
     else:
         print("invalid value, try again...")
 # Node Server Configuration
@@ -99,7 +101,8 @@ while True:
     if host_if_statment == "":
         break
     else:
-        SERVER_PORT = int(host_if_statment)
+        SERVER_PORT = host_if_statment
+        break
 SERVER_USER = 'root' # Default User
 while True:
     host_if_statment = input("Please Enter Your Node Server User (Default : root): ")
@@ -107,6 +110,7 @@ while True:
         break
     else:
         SERVER_USER = host_if_statment
+        break
 SERVER_PASSWORD = input("Please Enter Your Node Server password: ")
 
 # Create a reusable session
