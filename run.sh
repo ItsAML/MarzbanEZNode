@@ -8,16 +8,27 @@ fi
 
 if ! command -v pip &> /dev/null; then
     echo "pip is not installed."
-    sudo apt install python3-pip -y
+    sudo apt install python3-pip -y || {
+        echo "Installing pip via alternative method..."
+        wget -qO- https://bootstrap.pypa.io/get-pip.py | sudo python3 -
+    }
 fi
 
-required_libraries=("requests" "paramiko")
+# Function to check if a Python library is installed
+check_library() {
+    python3 -c "import $1" &> /dev/null
+}
+
+required_libraries=("paramiko==3.3.1" "requests==2.31.0")
 
 for lib in "${required_libraries[@]}"; do
-    if ! python3 -c "import $lib" &> /dev/null; then
-        echo "$lib is not installed."
-        # Install the missing library using pip
+    # Split the string to get the library name for checking
+    lib_name=$(echo "$lib" | cut -d '=' -f 1)
+    
+    if ! check_library "$lib_name"; then
         sudo pip install "$lib"
+    else
+        echo "$lib is already installed."
     fi
 done
 
