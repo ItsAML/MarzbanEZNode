@@ -32,7 +32,7 @@ for lib in "${required_libraries[@]}"; do
     lib_name=$(echo "$lib" | cut -d '=' -f 1)
     
     if ! check_library "$lib_name"; then
-        sudo pip install "$lib" || install_library_apt "$lib_name"
+        install_library_apt "$lib_name" || sudo pip install "$lib"
     else
         echo "$lib is already installed."
     fi
