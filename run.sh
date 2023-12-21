@@ -19,6 +19,12 @@ check_library() {
     python3 -c "import $1" &> /dev/null
 }
 
+# Function to install library using apt if pip install fails
+install_library_apt() {
+    local package_name="python3-$1"
+    sudo apt install "$package_name" -y
+}
+
 required_libraries=("paramiko==3.3.1" "requests==2.31.0")
 
 for lib in "${required_libraries[@]}"; do
@@ -26,7 +32,7 @@ for lib in "${required_libraries[@]}"; do
     lib_name=$(echo "$lib" | cut -d '=' -f 1)
     
     if ! check_library "$lib_name"; then
-        sudo pip install "$lib"
+        sudo pip install "$lib" || install_library_apt "$lib_name"
     else
         echo "$lib is already installed."
     fi
