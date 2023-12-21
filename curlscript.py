@@ -1,69 +1,10 @@
-import subprocess
 import logging
 import json
-
-# Checkout for Required Libraries
-def install_libraries():
-    required_libraries = ['requests', 'paramiko']
-    missing_libraries = []
-
-    try:
-        import importlib
-        for lib in required_libraries:
-            try:
-                importlib.import_module(lib)
-            except ImportError:
-                missing_libraries.append(lib)
-
-        if missing_libraries:
-            # Creating a virtual environment
-            subprocess.check_call(['python3', '-m', 'venv', 'myenv'])
-            # Activating the virtual environment
-            subprocess.check_call(['source', 'myenv/bin/activate'])
-            # Installing required packages within the virtual environment
-            subprocess.check_call(['pip', 'install'] + missing_libraries)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return
-
-    if missing_libraries:
-        print("The following libraries were installed:")
-        for lib in missing_libraries:
-            print(lib)
-    else:
-        print("All required libraries are already installed.")
-
-install_libraries()
 import paramiko
 import requests
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
-
-# Checking Libraries
-def check_libraries():
-    required_libraries = ['requests', 'paramiko']
-    missing_libraries = []
-
-    try:
-        import importlib
-        for lib in required_libraries:
-            try:
-                importlib.import_module(lib)
-            except ImportError:
-                missing_libraries.append(lib)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return
-
-    if missing_libraries:
-        print("The following libraries are missing:")
-        for lib in missing_libraries:
-            print(lib)
-    else:
-        print("All required libraries are installed.")
-
-check_libraries()
 
 # Marzban Information
 print("Marzban Panel Information")
@@ -155,7 +96,7 @@ def add_node(access_token, server_ip):
     use_protocol = 'https' if HTTPS else 'http'
     url = f'{use_protocol}://{DOMAIN}:{PORT}/api/node'
     node_information = {
-        "name": f"{server_ip} - Added By AML",
+        "name": f"{server_ip} - github.com/itsAML",
         "address": f"{server_ip}",
         "port": 62050,
         "api_port": 62051,
@@ -185,7 +126,7 @@ cert_info = get_cert(access_token)
 commands = [
     'sudo ufw disable',
     'curl -fsSL https://get.docker.com | sh',
-    'rm -r Marzban-node',
+    '[ -d "Marzban-node" ] && rm -r "Marzban-node"',
     'git clone https://github.com/Gozargah/Marzban-node',
     'cd Marzban-node',
     'docker compose up -d',

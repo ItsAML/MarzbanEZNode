@@ -49,7 +49,7 @@ def add_node(access_token, server_ip):
     use_protocol = 'https' if HTTPS else 'http'
     url = f'{use_protocol}://{DOMAIN}:{PORT}/api/node'
     node_information = {
-        "name": f"{server_ip} - Added By AML",
+        "name": f"{server_ip} - github.com/itsAML",
         "address": f"{server_ip}",
         "port": 62050,
         "api_port": 62051,
@@ -79,7 +79,7 @@ cert_info = get_cert(access_token)
 commands = [
     'sudo ufw disable',
     'curl -fsSL https://get.docker.com | sh',
-    'rm -r Marzban-node',
+    '[ -d "Marzban-node" ] && rm -r "Marzban-node"',
     'git clone https://github.com/Gozargah/Marzban-node',
     'cd Marzban-node',
     'docker compose up -d',
@@ -87,7 +87,7 @@ commands = [
     f'echo "{cert_info}" > /var/lib/marzban-node/ssl_client_cert.pem',
     'rm docker-compose.yml',
     'echo \'services:\n  marzban-node:\n    image: gozargah/marzban-node:latest\n    restart: always\n    network_mode: host\n    environment:\n      SSL_CERT_FILE: "/var/lib/marzban-node/ssl_cert.pem"\n      SSL_KEY_FILE: "/var/lib/marzban-node/ssl_key.pem"\n      SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert.pem"\n    volumes:\n      - /var/lib/marzban-node:/var/lib/marzban-node\' > docker-compose.yml',
-    'docker compose up'
+    'docker compose up -d'
 ]
 
 # Establish SSH connection
