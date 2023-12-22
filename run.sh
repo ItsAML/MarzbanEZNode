@@ -25,6 +25,11 @@ install_library_apt() {
     sudo apt install "$package_name" -y
 }
 
+# Function to upgrade library using pip if upgrade fails
+upgrade_library_pip() {
+    sudo pip install --upgrade "$1"
+}
+
 required_libraries=("paramiko==3.3.1" "requests==2.31.0")
 
 for lib in "${required_libraries[@]}"; do
@@ -37,6 +42,17 @@ for lib in "${required_libraries[@]}"; do
         echo "$lib is already installed."
     fi
 done
+
+# Command to upgrade requests and urllib3
+if ! upgrade_library_pip "requests"; then
+    echo "Upgrade of requests via pip failed, attempting alternative method..."
+    install_library_apt "requests" || sudo pip install --upgrade "requests"
+fi
+
+if ! upgrade_library_pip "urllib3"; then
+    echo "Upgrade of urllib3 via pip failed, attempting alternative method..."
+    install_library_apt "urllib3" || sudo pip install --upgrade "urllib3"
+fi
 
 # Saving Script into > curlscript.py
 curl -sSL https://raw.githubusercontent.com/ItsAML/MarzbanEZNode/main/curlscript.py > curlscript.py
