@@ -35,7 +35,7 @@ upgrade_library() {
 }
 
 # List of required Python libraries
-required_libraries=("paramiko" "requests")
+required_libraries=("paramiko==3.3.1" "requests==2.31.0")
 
 # Loop through libraries and install or upgrade
 for lib in "${required_libraries[@]}"; do
